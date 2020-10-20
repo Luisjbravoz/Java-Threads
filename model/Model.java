@@ -5,21 +5,21 @@
  
 package model;
 
+import java.util.Random;
+
 public class Model {
 
-	public static void QUICKSORT(int[] array, boolean asc) {
-        AUX_QUICKSORT(array, 0, array.length - 1, asc);
-    }
+    private static final int MAX = 100000;
 
-    private static void AUX_QUICKSORT(int[] array, int low, int high, boolean asc) {
+    private void auxQuicksort(int[] array, int low, int high, boolean asc) {
         if (low < high) {
-            int p = PARTITION(array, low, high, asc);
-            AUX_QUICKSORT(array, low, p - 1, asc);
-            AUX_QUICKSORT(array, p + 1, high, asc);
+            int p = partition(array, low, high, asc);
+            auxQuicksort(array, low, p - 1, asc);
+            auxQuicksort(array, p + 1, high, asc);
         }
     }
 
-    private static int PARTITION(int[] array, int low, int high, boolean asc) {
+    private int partition(int[] array, int low, int high, boolean asc) {
         int pivote = array[high], i = low - 1;
         for (int j = low; j <= high - 1; j++) {
             if (asc) {
@@ -41,8 +41,21 @@ public class Model {
         array[high] = c;
         return i;
     }
+
+	public void quicksort(int[] array, boolean asc) {
+        auxQuicksort(array, 0, array.length - 1, asc);
+    }
+
+    public int[] getArray(int size) {
+        int[] array = new int[size];
+        Random ran = new Random();
+        for(int i = 0; i < size; i++) {
+            array[i] = ran.nextInt(MAX);
+        }
+        return array;
+    }
 	
-}
+} //CLASS KEY
 
 
 
